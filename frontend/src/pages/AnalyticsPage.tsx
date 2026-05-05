@@ -80,30 +80,33 @@ export function AnalyticsPage() {
         <p className="text-gray-600">Select a survey to view analytics</p>
         
         {surveys.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-gray-500">No surveys available</p>
-            </CardContent>
-          </Card>
+          <div className="text-center py-12">
+            <p className="text-gray-500">No surveys available</p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {surveys.map((survey) => {
               const surveyId = survey._id || survey.id;
               return (
-                <Link key={surveyId} to={`/dashboard/analytics/${surveyId}`}>
-                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                    <CardHeader>
-                      <CardTitle className="text-lg flex items-center gap-2">
-                        <BarChart3 className="h-5 w-5" />
-                        {survey.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-500 line-clamp-2">{survey.description}</p>
-                      <p className="text-sm text-gray-400 mt-2">{survey.questions.length} questions</p>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card key={surveyId} className="flex flex-col h-full">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{survey.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col">
+                    <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                      {survey.description}
+                    </p>
+                    <p className="text-sm text-gray-500 mb-4">
+                      {survey.questions.length} questions
+                    </p>
+                    <Link to={`/dashboard/analytics/${surveyId}`} className="mt-auto">
+                      <Button variant="outline" size="sm" className="w-full">
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        View Analytics
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>
@@ -123,19 +126,15 @@ export function AnalyticsPage() {
       </div>
 
       {error ? (
-        <Card className="border-red-200 bg-red-50">
-          <CardContent className="py-6">
-            <p className="text-red-600">{error}</p>
-          </CardContent>
-        </Card>
+        <div className="border border-red-200 bg-red-50 rounded-lg p-6">
+          <p className="text-red-600">{error}</p>
+        </div>
       ) : analytics ? (
         <AnalyticsDashboard analytics={analytics} survey={survey} />
       ) : (
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="text-gray-500">No data available</p>
-          </CardContent>
-        </Card>
+        <div className="text-center py-12">
+          <p className="text-gray-500">No data available</p>
+        </div>
       )}
     </div>
   );
