@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { DashboardLayout } from './layouts/DashboardLayout';
-import { AdminDashboard } from './pages/AdminDashboard';
 import { SurveysPage } from './pages/SurveysPage';
 import { CreateSurveyPage } from './pages/CreateSurveyPage';
 import { SurveyPage } from './pages/SurveyPage';
