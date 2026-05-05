@@ -9,27 +9,32 @@
     "build": "npm install && tsc",
     "start": "node dist/server.js"
   },
-  "keywords": ["survey", "backend", "typescript", "express"],
+  "keywords": [
+    "survey",
+    "backend",
+    "typescript",
+    "express"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.6.1",
-    "helmet": "^8.0.0",
     "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.6.1",
     "zod": "^3.24.1",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.6.0",
-    "@types/cors": "^2.8.17",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.7",
-    "typescript": "^6.0.3",
     "tsx": "^4.19.2"
   }
 }
