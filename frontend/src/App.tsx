@@ -22,11 +22,10 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/survey/:id" element={<SurveyPage />} />
+        <Route path="/" element={<><Header /><LandingPage /></>} />
+        <Route path="/login" element={<><Header /><LoginPage /></>} />
+        <Route path="/survey/:id" element={<><Header /><SurveyPage /></>} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route index element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
           <Route path="surveys" element={<SurveysPage />} />

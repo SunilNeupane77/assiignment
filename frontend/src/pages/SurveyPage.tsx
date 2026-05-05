@@ -91,7 +91,7 @@ export function SurveyPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="py-8 px-4">
       <div className="max-w-4xl mx-auto mb-6">
         <Button variant="ghost" onClick={() => navigate('/dashboard/surveys')}>
           <ArrowLeft className="h-4 w-4 mr-2" />
