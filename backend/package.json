@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "npm install && tsc",
+    "build": "npm install --include=dev && tsc",
     "start": "node dist/server.js"
   },
   "keywords": [
