@@ -29,7 +29,7 @@ function App() {
           <Route path="/survey/:id" element={<SurveyPage />} />
         </Route>
         <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
-          <Route index element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
+          <Route index element={<Navigate to="/dashboard/surveys" replace />} />
           <Route path="surveys" element={<SurveysPage />} />
           <Route path="surveys/new" element={<ProtectedRoute adminOnly><CreateSurveyPage /></ProtectedRoute>} />
           <Route path="analytics" element={<ProtectedRoute adminOnly><AnalyticsPage /></ProtectedRoute>} />

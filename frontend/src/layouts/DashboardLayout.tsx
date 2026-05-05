@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, FileText, BarChart3 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Header } from '../components/Header';
 import { cn } from '../lib/utils';
 
 export function DashboardLayout() {
@@ -16,10 +16,11 @@ export function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="flex h-screen">
+      <Header />
+      <div className="flex">
         {/* Sidebar */}
         <div className="hidden md:flex md:w-64 md:flex-col">
-          <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r">
+          <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r min-h-[calc(100vh-64px)]">
             <div className="px-4 mt-2">
               <p className="text-xs text-gray-500">
                 {user.username} ({isAdmin ? 'Admin' : 'User'})
@@ -56,21 +57,12 @@ export function DashboardLayout() {
         </div>
 
         {/* Main content */}
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <main className="flex-1 relative overflow-y-auto focus:outline-none">
-            <div className="py-6">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Welcome to the Dashboard</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Outlet />
-                  </CardContent>
-                </Card>
-              </div>
+        <div className="flex-1 overflow-y-auto">
+          <div className="py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+              <Outlet />
             </div>
-          </main>
+          </div>
         </div>
       </div>
     </div>

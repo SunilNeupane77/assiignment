@@ -20,6 +20,9 @@ export function Header() {
       <div className="flex items-center gap-4">
         {token ? (
           <>
+            <Link to="/dashboard/surveys">
+              <Button variant="ghost" size="sm">Dashboard</Button>
+            </Link>
             <span className="text-sm text-gray-600">{user.username}</span>
             <Button variant="outline" size="sm" onClick={handleLogout}>
               Logout
