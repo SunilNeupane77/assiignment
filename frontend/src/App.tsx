@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Header } from './components/Header';
+import { MainLayout } from './layouts/MainLayout';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { SurveysPage } from './pages/SurveysPage';
@@ -23,9 +23,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<><Header /><LandingPage /></>} />
-        <Route path="/login" element={<><Header /><LoginPage /></>} />
-        <Route path="/survey/:id" element={<><Header /><SurveyPage /></>} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/survey/:id" element={<SurveyPage />} />
+        </Route>
         <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route index element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
           <Route path="surveys" element={<SurveysPage />} />
