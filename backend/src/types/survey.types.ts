@@ -23,6 +23,8 @@ export interface Survey {
   version?: number;
   isActive?: boolean;
   parentSurveyId?: string;
+  startDate?: Date;
+  expiryDate?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -31,10 +33,14 @@ export interface CreateSurveyDTO {
   title: string;
   description?: string;
   questions: Question[];
+  startDate?: Date;
+  expiryDate?: Date;
 }
 
 export interface UpdateSurveyDTO {
   title?: string;
   description?: string;
   questions?: Question[];
+  startDate?: Date;
+  expiryDate?: Date;
 }

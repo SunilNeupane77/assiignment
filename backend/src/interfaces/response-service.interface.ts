@@ -4,4 +4,5 @@ export interface IResponseService {
   submitResponse(data: CreateResponseDTO, ipAddress?: string): Promise<SurveyResponse>;
   getAnalytics(surveyId: string): Promise<SurveyAnalytics>;
   getResponsesBySurvey(surveyId: string): Promise<SurveyResponse[]>;
+  exportToCSV(surveyId: string): Promise<string>;
 }

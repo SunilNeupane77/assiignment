@@ -35,4 +35,10 @@ router.get(
   responseController.getResponsesBySurvey.bind(responseController)
 );
 
+router.get(
+  '/export/:surveyId',
+  authenticate,
+  responseController.exportCSV.bind(responseController)
+);
+
 export default router;

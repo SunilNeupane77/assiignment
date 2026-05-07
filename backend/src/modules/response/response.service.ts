@@ -95,6 +95,31 @@ export class ResponseService implements IResponseService {
     return response ? this.toResponseDTO(response) : null;
   }
 
+  async exportToCSV(surveyId: string): Promise<string> {
+    if (!ValidationHelper.isValidObjectId(surveyId)) {
+      throw new AppError(ERROR_MESSAGES.SURVEY_NOT_FOUND, HTTP_STATUS.NOT_FOUND);
+    }
+
+    const survey = await SurveyModel.findById(surveyId);
+    if (!survey) {
+      throw new AppError(ERROR_MESSAGES.SURVEY_NOT_FOUND, HTTP_STATUS.NOT_FOUND);
+    }
+
+    const responses = await ResponseModel.find({ surveyId, isPartial: { $ne: true } });
+    
+    const headers = ['Response ID', 'Submitted At', ...survey.questions.map(q => q.question)];
+    const rows = responses.map(r => {
+      const row = [r._id.toString(), r.submittedAt.toISOString()];
+      survey.questions.forEach(q => {
+        const answer = r.answers.find((a: any) => a.questionId === q.id);
+        row.push(answer ? (Array.isArray(answer.value) ? answer.value.join('; ') : String(answer.value)) : '');
+      });
+      return row;
+    });
+
+    return [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+  }
+
   private calculateQuestionAnalytics(question: Question, responses: SurveyResponse[]): QuestionAnalytics {
     const questionAnalytics: QuestionAnalytics = {
       questionId: question.id,

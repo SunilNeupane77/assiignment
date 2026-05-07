@@ -55,4 +55,16 @@ export class ResponseController {
       next(error);
     }
   }
+
+  async exportCSV(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const surveyId = String(req.params.surveyId);
+      const csv = await responseService.exportToCSV(surveyId);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=survey-${surveyId}-responses.csv`);
+      res.status(200).send(csv);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

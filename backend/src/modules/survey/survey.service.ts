@@ -39,6 +39,15 @@ export class SurveyService implements ISurveyService {
     if (!survey) {
       throw new AppError(ERROR_MESSAGES.SURVEY_NOT_FOUND, HTTP_STATUS.NOT_FOUND);
     }
+
+    const now = new Date();
+    if (survey.startDate && now < survey.startDate) {
+      throw new AppError('Survey has not started yet', HTTP_STATUS.BAD_REQUEST);
+    }
+    if (survey.expiryDate && now > survey.expiryDate) {
+      throw new AppError('Survey has expired', HTTP_STATUS.BAD_REQUEST);
+    }
+
     return this.toSurveyDTO(survey);
   }
 
@@ -129,6 +138,8 @@ export class SurveyService implements ISurveyService {
       title: doc.title,
       description: doc.description,
       questions: doc.questions,
+      startDate: doc.startDate,
+      expiryDate: doc.expiryDate,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     };

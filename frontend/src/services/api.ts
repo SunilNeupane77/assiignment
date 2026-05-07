@@ -35,6 +35,7 @@ export const responseApi = {
   getAnalytics: (surveyId: string) => api.get(`/responses/analytics/${surveyId}`),
   savePartial: (data: Omit<SurveyResponse, '_id' | 'id' | 'submittedAt'>) => api.post('/responses/partial', data),
   getPartial: (surveyId: string, respondentId: string) => api.get(`/responses/partial/${surveyId}/${respondentId}`),
+  exportCSV: (surveyId: string) => api.get(`/responses/export/${surveyId}`, { responseType: 'blob' }),
 };
 
 export const authApi = {

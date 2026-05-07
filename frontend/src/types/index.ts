@@ -16,6 +16,8 @@ export interface Survey {
   title: string;
   description: string;
   questions: Question[];
+  startDate?: string | Date;
+  expiryDate?: string | Date;
   createdAt?: string;
   updatedAt?: string;
 }

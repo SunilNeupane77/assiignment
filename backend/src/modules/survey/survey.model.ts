@@ -31,6 +31,8 @@ const surveySchema = new Schema<ISurveyDocument>({
   version: { type: Number, default: 1 },
   isActive: { type: Boolean, default: true },
   parentSurveyId: { type: Schema.Types.ObjectId, ref: 'Survey' },
+  startDate: { type: Date },
+  expiryDate: { type: Date },
 }, { timestamps: true });
 
 surveySchema.index({ createdAt: -1 });

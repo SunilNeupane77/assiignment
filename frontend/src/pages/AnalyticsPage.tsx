@@ -5,7 +5,7 @@ import { responseApi, surveyApi } from '../services/api';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { ArrowLeft, BarChart3 } from 'lucide-react';
+import { ArrowLeft, BarChart3, Download } from 'lucide-react';
 import type { Analytics, Survey } from '../types';
 
 export function AnalyticsPage() {
@@ -16,6 +16,23 @@ export function AnalyticsPage() {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
+
+  const handleExportCSV = async () => {
+    if (!id) return;
+    try {
+      const response = await responseApi.exportCSV(id);
+      const blob = new Blob([response.data], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `survey-${id}-responses.csv`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to export CSV:', err);
+      alert('Failed to export CSV');
+    }
+  };
 
   useEffect(() => {
     const loadSurveys = async () => {
@@ -117,12 +134,18 @@ export function AnalyticsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" onClick={() => navigate('/dashboard/analytics')}>
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" onClick={() => navigate('/dashboard/analytics')}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
+          <h1 className="text-3xl font-bold">{survey?.title || 'Analytics'}</h1>
+        </div>
+        <Button onClick={handleExportCSV} variant="outline">
+          <Download className="h-4 w-4 mr-2" />
+          Export CSV
         </Button>
-        <h1 className="text-3xl font-bold">{survey?.title || 'Analytics'}</h1>
       </div>
 
       {error ? (
