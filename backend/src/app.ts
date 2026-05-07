@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import authRoutes from './modules/auth/auth.routes.js';
 import surveyRoutes from './modules/survey/survey.routes.js';
 import responseRoutes from './modules/response/response.routes.js';
+import notificationRoutes from './modules/notification/notification.routes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { RATE_LIMIT } from './constants/index.js';
 import { ResponseHelper } from './helpers/index.js';
@@ -52,6 +53,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/surveys', surveyRoutes);
 app.use('/api/responses', responseRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 app.use(errorHandler);
 

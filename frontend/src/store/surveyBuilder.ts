@@ -7,6 +7,7 @@ interface SurveyBuilderState {
   questions: Question[];
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
+  setQuestions: (questions: Question[]) => void;
   addQuestion: (question: Question) => void;
   updateQuestion: (id: string, question: Partial<Question>) => void;
   deleteQuestion: (id: string) => void;
@@ -21,6 +22,7 @@ export const useSurveyBuilder = create<SurveyBuilderState>((set) => ({
   questions: [],
   setTitle: (title) => set({ title }),
   setDescription: (description) => set({ description }),
+  setQuestions: (questions) => set({ questions }),
   addQuestion: (question) => set((state) => ({ 
     questions: [...state.questions, question] 
   })),

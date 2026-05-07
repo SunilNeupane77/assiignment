@@ -44,3 +44,10 @@ export const authApi = {
   register: (username: string, password: string, role?: string) => 
     api.post('/auth/register', { username, password, role }),
 };
+
+export const notificationApi = {
+  getNotifications: (unreadOnly = false) => api.get(`/notifications${unreadOnly ? '?unreadOnly=true' : ''}`),
+  getUnreadCount: () => api.get('/notifications/unread-count'),
+  markAsRead: (id: string) => api.put(`/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/notifications/read-all'),
+};

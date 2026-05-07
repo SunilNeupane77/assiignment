@@ -8,7 +8,8 @@ const surveyService = new SurveyService();
 export class SurveyController {
   async createSurvey(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const survey = await surveyService.createSurvey(req.body);
+      const userId = (req as any).user?.id;
+      const survey = await surveyService.createSurvey({ ...req.body, createdBy: userId });
       res.status(201).json(ResponseHelper.success(survey, SUCCESS_MESSAGES.SURVEY_CREATED));
     } catch (error) {
       next(error);

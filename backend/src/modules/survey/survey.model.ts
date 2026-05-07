@@ -33,6 +33,7 @@ const surveySchema = new Schema<ISurveyDocument>({
   parentSurveyId: { type: Schema.Types.ObjectId, ref: 'Survey' },
   startDate: { type: Date },
   expiryDate: { type: Date },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
 }, { timestamps: true });
 
 surveySchema.index({ createdAt: -1 });

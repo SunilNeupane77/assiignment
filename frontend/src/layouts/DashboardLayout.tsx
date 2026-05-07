@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, FileText, BarChart3 } from 'lucide-react';
 import { Header } from '../components/Header';
+import { NotificationBell } from '../components/NotificationBell';
 import { cn } from '../lib/utils';
 
 export function DashboardLayout() {
@@ -16,7 +17,10 @@ export function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <div className="bg-white border-b px-4 py-3 flex items-center justify-between">
+        <h1 className="text-xl font-bold">Survey App</h1>
+        <NotificationBell />
+      </div>
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden md:flex md:w-64 md:flex-col">

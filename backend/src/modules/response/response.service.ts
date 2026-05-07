@@ -1,5 +1,6 @@
 import { ResponseModel } from './response.model.js';
 import { SurveyModel } from '../survey/survey.model.js';
+import { NotificationModel } from '../notification/notification.model.js';
 import { IResponseService } from '../../interfaces/index.js';
 import { CreateResponseDTO, SurveyResponse, SurveyAnalytics, QuestionAnalytics, Question, Answer } from '../../types/index.js';
 import { AppError } from '../../middleware/errorHandler.js';
@@ -25,6 +26,19 @@ export class ResponseService implements IResponseService {
       ipAddress,
       isPartial: false,
     });
+
+    // Create notification
+    const totalResponses = await ResponseModel.countDocuments({ surveyId: data.surveyId });
+    const milestones = [10, 50, 100, 500, 1000];
+    
+    if (milestones.includes(totalResponses)) {
+      await NotificationModel.create({
+        userId: (survey as any).createdBy,
+        surveyId: data.surveyId,
+        message: `Your survey "${survey.title}" has reached ${totalResponses} responses!`,
+        type: 'milestone',
+      });
+    }
 
     return this.toResponseDTO(response);
   }
@@ -109,7 +123,7 @@ export class ResponseService implements IResponseService {
     
     const headers = ['Response ID', 'Submitted At', ...survey.questions.map(q => q.question)];
     const rows = responses.map(r => {
-      const row = [r._id.toString(), r.submittedAt.toISOString()];
+      const row = [r._id.toString(), r.submittedAt?.toISOString() || ''];
       survey.questions.forEach(q => {
         const answer = r.answers.find((a: any) => a.questionId === q.id);
         row.push(answer ? (Array.isArray(answer.value) ? answer.value.join('; ') : String(answer.value)) : '');

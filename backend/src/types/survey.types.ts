@@ -25,6 +25,7 @@ export interface Survey {
   parentSurveyId?: string;
   startDate?: Date;
   expiryDate?: Date;
+  createdBy?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
